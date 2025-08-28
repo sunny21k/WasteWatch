@@ -2,7 +2,7 @@ import React from 'react'
 
 const App = () => {
   return (
-    <div className='font-bold'>Waste Watch</div>
+    <div className='font-bold text-2xl'>Waste Watch</div>
   )
 }
 
