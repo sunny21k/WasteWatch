@@ -6,3 +6,10 @@
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
 }
+
+@theme {
+    --color-primary-gray: #718096; /* text-gray-600 */
+    --color-secondary-gray: #374151; /* text-gray-700 */
+    --color-primary-green: #38a169; /* text-green-600 */
+    --color-secondary-green: #388E3C; /* text-green-700 */
+}

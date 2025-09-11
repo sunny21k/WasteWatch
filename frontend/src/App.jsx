@@ -5,9 +5,9 @@ import Navbar from './components/Navbar'
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-    </div>
+      <Routes>
+        <Route path='/' element={<Home />} />
+      </Routes>
   )
 }
 
