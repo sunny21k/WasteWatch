@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./LoginSignin.css";
 
 
-import user_icon from "../asets/person.png";
+import user_icon from "../assets/person.png";
 import email_icon from "../assets/email.png";
 import password_icon from "../assets/password.png";
 

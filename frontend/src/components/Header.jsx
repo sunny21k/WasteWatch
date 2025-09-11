@@ -4,6 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa";
 import { features } from '../assets/assets';
 import FeatureCard from './FeatureCard';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -28,8 +29,12 @@ const Header = () => {
           <div className='mt-6 flex justify-center gap-2 flex-wrap'>
             <button className='cursor-pointer rounded-lg border px-5 py-2 hover:bg-primary-green 
             hover:text-white transition-all duration-200 text-sm sm:text-base'>See How It Works</button>
+
+
+            <Link to={"/login-signin"}>
             <button className=' flex items-center gap-3 justify-between cursor-pointer rounded-lg border px-5 py-2 bg-primary-green text-white 
             hover:bg-green-900 transition-all duration-200 text-sm sm:text-base'>Get Started <FaArrowRightLong /></button>
+            </Link>
           </div>
 
           {/* Feature Card */}

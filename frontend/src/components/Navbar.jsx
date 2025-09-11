@@ -39,8 +39,16 @@ const Navbar = () => {
             <RiCoinsLine className='text-green-500 w-6 h-6 m-1'/>
             0
           </div>
-          <button className='cursor-pointer rounded-lg border px-5 py-2 hover:bg-primary-green hover:text-white transition-all duration-200 text-sm sm:text-base'>Log In</button>
-          <button className='cursor-pointer rounded-lg border px-5 py-2 bg-primary-green text-white hover:bg-green-900 transition-all duration-200 text-sm sm:text-base'>Create Account</button>
+
+          <Link to={"/login-signin"}>
+          <button className='cursor-pointer rounded-lg border px-5 py-2 hover:bg-primary-green
+           hover:text-white transition-all duration-200 text-sm sm:text-base'>Log In</button>
+          </Link>
+
+           <Link to={"/login-signin"}>
+          <button className='cursor-pointer rounded-lg border px-5 py-2 bg-primary-green 
+          ext-white hover:bg-green-900 transition-all duration-200 text-sm sm:text-base'>Create Account</button>
+          </Link>
         </div>
 
         <div className='lg:hidden flex items-center'>
