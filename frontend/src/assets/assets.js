@@ -59,4 +59,30 @@ export const footerDetails = [
     }
 ]
 
-// 
+// Fake Leaderboard data
+export const leaderBoardData = [
+    {
+        id: 1,
+        name: "Kieron Pittman",
+        points: 1000,
+        rank: 2,
+    },
+    {
+        id: 2,
+        name: "Ryan Goodman",
+        points: 200,
+        rank: 3,
+    },
+    {
+        id: 3,
+        name: "Ivan Thomson",
+        points: 1410,
+        rank: 1,
+    },
+    {
+        id: 4,
+        name: "Carl Cannon",
+        points: 110,
+        rank: 4,
+    },
+]
