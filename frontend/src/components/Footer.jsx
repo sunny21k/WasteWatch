@@ -1,8 +1,25 @@
 import React from 'react'
 import {FaBinoculars} from "react-icons/fa6"
 import {footerDetails} from "../assets/assets"
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
+
+  const getLinkPath = (linkName) => {
+    if (linkName === "Home") {
+      return "/"
+    } else if (linkName === "Report Waste") {
+      return "/report-waste"
+    } else if (linkName === "Collect Waste") {
+      return "/collect-waste"
+    } else if (linkName === "Leaderboard") {
+      return "/leaderboard"
+    } else if (linkName === "Rewards") {
+      return "/rewards"
+    } 
+    else return "#"
+  }
+
   return (
     <div className='px-6 border-t-1 mt-20 border-gray-200 md:px-16 lg:px-24 xl:px-32 bg-green-200'>
       <div className='flex flex-col md:flex-row items-start justify-between gap-10
@@ -27,7 +44,9 @@ const Footer = () => {
               <ul className='space-y-1 text-sm'>
                 {footer.links.map((link, index) => (
                   <li key={index}>
-                    <a className='hover:underline transition' href="#">{link}</a>
+                    <Link className='hover:underline transition' to={getLinkPath(link)}>
+                      {link}
+                    </Link>
                   </li>
                 ))}
               </ul>

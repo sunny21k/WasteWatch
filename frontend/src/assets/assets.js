@@ -1,14 +1,16 @@
 import { FaTrashAlt, FaRecycle, FaTrophy } from "react-icons/fa";
 import { RiCoinsLine } from "react-icons/ri";
 
+
+// Menu links 
 export const menuLinks = [
     {
         name: "Report Waste", 
-        path: "/report"
+        path: "/report-waste"
     },
     {
         name: "Collect Waste", 
-        path: "/collect"
+        path: "/collect-waste"
     },
     {
         name: "Leaderboard", 
@@ -20,6 +22,8 @@ export const menuLinks = [
     },
 ]
 
+
+// Features for about page
 export const features = [
     {
         title: "Report Waste Easily",
@@ -39,6 +43,7 @@ export const features = [
 
 ]
 
+// Footer details
 export const footerDetails = [
     {
         title: "Quick Links",
@@ -53,3 +58,5 @@ export const footerDetails = [
         links: ["Instagram", "Twitter", "Facebook", "Youtube"]
     }
 ]
+
+// 

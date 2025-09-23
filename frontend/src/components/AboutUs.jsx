@@ -17,7 +17,7 @@ const AboutUs = () => {
             </h2>
             <div className='mt-8 grid grid-cols-3 gap-2'>
                 {["Engaging", "Rewarding", "Sustainable", "Collaborative", "Impactful", "Innovative", "Transparent"].map((word, index) => (
-                    <div key={index} className='flex justify-center items-center px-8 py-2 rounded-md border border-green-200
+                    <div key={index} className='flex justify-center hover:scale-[1.05] transition-all items-center px-8 py-2 rounded-md border border-green-200
                     bg-green-50 text-green-800 font-medium text-sm'>
                         {word}
                     </div>

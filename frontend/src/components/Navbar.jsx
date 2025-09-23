@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className='flex justify-between items-center p-4 border-b-4 border-green-700 max-w-7xl mx-auto'>
 
         {/* Logo */}
-        <Link to={"/"} className='flex items-center'>
+        <Link to={"/"} className='flex items-center hover:scale-[1.1] transition-all'>
           <FaBinoculars className='w-8 h-8 text-green-900'/>
           <h1 className='ml-2 text-xl text-secondary-green font-bold sm:text-2xl transition-all'>Waste <span className='text-green-900'>Watch</span></h1>
         </Link>
@@ -27,7 +27,7 @@ const Navbar = () => {
         {/* Menu Links */}
         <div className='hidden lg:flex space-x-6'>
           {menuLinks.map((link, index) => (
-            <Link className='text-secondary-gray hover:text-secondary-green transition-all duration-200' key={index} to={link.path}>
+            <Link className='text-secondary-gray hover:border-b-2 hover:text-secondary-green transition-all duration-200' key={index} to={link.path}>
                 {link.name}
             </Link>
           ))}
@@ -46,7 +46,7 @@ const Navbar = () => {
           </Link>
 
            <Link to={"/login-signin"}>
-          <button className='cursor-pointer rounded-lg border px-5 py-2 bg-primary-green 
+          <button className='cursor-pointer text-white rounded-lg px-5 py-2 bg-primary-green 
           ext-white hover:bg-green-900 transition-all duration-200 text-sm sm:text-base'>Create Account</button>
           </Link>
         </div>
