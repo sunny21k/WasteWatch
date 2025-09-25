@@ -16,7 +16,7 @@ const App = () => {
   const hideLayout = location.pathname === "/login-signin"
 
   return (
-    <div className='flex flex-col min-h-screen bg-green-50'>
+    <div className='flex flex-col min-h-screen '>
     {!hideLayout && <Navbar />}
 
     <main className='flex-grow'>
