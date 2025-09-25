@@ -7,10 +7,8 @@ import AboutUs from '../components/AboutUs'
 const Home = () => {
   return (
     <>
-        <Navbar />
         <Header />
         <AboutUs />
-        <Footer />
     </>
   )
 }
