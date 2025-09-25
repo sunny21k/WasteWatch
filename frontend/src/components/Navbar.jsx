@@ -35,7 +35,7 @@ const Navbar = () => {
 
           {/* Auth Buttons and rewards */}
         <div className='flex space-x-4'>
-          <div className='border rounded-2xl flex items-center min-w-22 max-w-32 bg-gray-100 border-none p-2'>
+          <div className='border rounded-2xl flex items-center min-w-22 max-w-32 bg-gray-100 border-green-300 p-2'>
             <RiCoinsLine className='text-green-500 w-6 h-6 m-1'/>
             0
           </div>

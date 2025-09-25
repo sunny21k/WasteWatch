@@ -17,12 +17,13 @@ const Leaderboard = () => {
 
   return (
     <div className='mx-8 sm:mx-16 xl:ms-24 mt-10'>
-      <h1 className='rounded-t-2xl p-6 text-4xl text-white bg-gradient-to-r from-green-400 to-green-600 font-bold flex items-center justify-center gap-3 text-center'>
+      <h1 className='rounded-t-2xl p-6 text-4xl text-white bg-gradient-to-r from-green-400 to-green-600 
+      font-bold flex items-center justify-center gap-3 text-center'>
         <HiMiniTrophy className='w-8 h-8' />
         Leaderboard
       </h1>
 
-      <div className='bg-green-200 shadow-md p-4 flex flex-col gap-4'>
+      <div className='bg-green-100 shadow-md p-4 flex flex-col gap-4'>
         <div className='flex justify-between items-center text-center py-2 rounded px-4'>
           <div className='w-1/6'>RANK</div>
           <div className='w-1/6'>NAME</div>
@@ -37,8 +38,8 @@ const Leaderboard = () => {
             return (
               <div
               key={user.id}
-              className='flex items-center justify-between px-4 py-3 bg-green-200 rounded 
-              shadow hover:bg-green-100 transition'
+              className='flex items-center justify-between px-4 py-3 bg-green-100 rounded 
+              shadow hover:bg-green-200 transition'
               >
                 {/* Checks to see what is the index of the first 3 and uses the correct trophy color */}
                 <div className='w-1/6 text-center flex items-center justify-center gap-3'>
