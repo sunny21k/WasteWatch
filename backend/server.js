@@ -8,8 +8,10 @@ const app = express();
 
 connectDB();
 
+const allowedOrigins = ['http://localhost:5173']
+
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: allowedOrigins, credentials: true}));
 
 // Routes
 app.get('/', (req, res) => {

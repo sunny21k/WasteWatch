@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {FaBinoculars} from "react-icons/fa6"
 import { FaTimes, FaBars, FaHome, FaTrashAlt, FaRecycle, FaTrophy } from "react-icons/fa";
 import { menuLinks } from '../assets/assets'
 import { RiCoinsLine } from "react-icons/ri";
+import { AppContent } from '../context/AppContext';
 
 const Navbar = () => {
+
+  const {userdata, setIsLoggedin, isLoggedin} = useContext(AppContent)
   
   // Mobile menu functionality 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,16 +42,31 @@ const Navbar = () => {
             <RiCoinsLine className='text-green-500 w-6 h-6 m-1'/>
             0
           </div>
+          
+          {isLoggedin ? (
+            <>
+            <div className='flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 text-gray-700'>
+              Welcome back, {userdata ? userdata.name : "Collector"}!
+              <></>
+            </div>
+            <button 
+            className='cursor-pointer rounded-lg border px-5 py-2 hover:bg-black hover:text-white transition-all duration-200 text-sm sm:text-base'>
+              Logout
+            </button>
+            </>
+          ) : (
+            <>
+              <Link to={"/login-signin"}>
+                <button className='cursor-pointer rounded-lg border px-5 py-2 hover:bg-primary-green
+                hover:text-white transition-all duration-200 text-sm sm:text-base'>Log In</button>
+              </Link>
 
-          <Link to={"/login-signin"}>
-          <button className='cursor-pointer rounded-lg border px-5 py-2 hover:bg-primary-green
-           hover:text-white transition-all duration-200 text-sm sm:text-base'>Log In</button>
-          </Link>
-
-           <Link to={"/login-signin"}>
-          <button className='cursor-pointer text-white rounded-lg px-5 py-2 bg-primary-green 
-          ext-white hover:bg-green-900 transition-all duration-200 text-sm sm:text-base'>Create Account</button>
-          </Link>
+              <Link to={"/login-signin"}>
+                <button className='cursor-pointer text-white rounded-lg px-5 py-2 bg-primary-green 
+                ext-white hover:bg-green-900 transition-all duration-200 text-sm sm:text-base'>Create Account</button>
+              </Link>
+            </>
+          )}
         </div>
 
         <div className='lg:hidden flex items-center'>
