@@ -8,7 +8,7 @@ import { AppContent } from '../context/AppContext';
 
 const Navbar = () => {
 
-  const {userdata, setIsLoggedin, isLoggedin} = useContext(AppContent)
+  const {userData, setIsLoggedin, isLoggedin} = useContext(AppContent)
   
   // Mobile menu functionality 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,7 +46,7 @@ const Navbar = () => {
           {isLoggedin ? (
             <>
             <div className='flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 text-gray-700'>
-              Welcome back, {userdata ? userdata.name : "Collector"}!
+              Welcome back, {userData ? userData.name : "Collector"}!
               <></>
             </div>
             <button 

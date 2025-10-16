@@ -18,7 +18,6 @@ export const AppContextProvider = (props) => {
             if (data.success) {
             setUserData(data.userData);
         } else {
-            // PROBLEM: Not finding the user
             console.log(data.message);
         }
         } catch (error) {

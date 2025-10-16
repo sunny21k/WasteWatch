@@ -91,7 +91,7 @@ export const getUser = async (req, res) => {
             })
         }
 
-        // Return certain fields except password
+        // Return fields except password
         return res.json({
             success: true, 
             user: {
