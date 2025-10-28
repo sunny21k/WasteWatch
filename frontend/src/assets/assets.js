@@ -87,3 +87,53 @@ export const leaderBoardData = [
         points: 450,
     },
 ]
+
+
+// Fake Reports Data
+export const fakeReports = [
+  {
+    id: 1,
+    type: "Plastic Bottles",
+    quantity: 5,
+    location: "Brooklyn, NY",
+    user: "Alice",
+    status: "open",
+    image: "https://via.placeholder.com/150"
+  },
+  {
+    id: 2,
+    type: "Paper",
+    quantity: 2,
+    location: "Queens, NY",
+    user: "Bob",
+    status: "pending",
+    image: "https://via.placeholder.com/150"
+  },
+  {
+    id: 3,
+    type: "Metal Cans",
+    quantity: 3,
+    location: "Manhattan, NY",
+    user: "Charlie",
+    status: "collected",
+    image: "https://via.placeholder.com/150"
+  },
+  {
+    id: 4,
+    type: "Metal Cans",
+    quantity: 3,
+    location: "Manhattan, NY",
+    user: "Charlie",
+    status: "collected",
+    image: "https://via.placeholder.com/150"
+  },
+  {
+    id: 5,
+    type: "Plastic Bottles",
+    quantity: 5,
+    location: "Brooklyn, NY",
+    user: "Alice",
+    status: "open",
+    image: "https://via.placeholder.com/150"
+  },
+];
