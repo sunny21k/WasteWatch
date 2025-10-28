@@ -16,7 +16,7 @@ const Leaderboard = () => {
   // })
 
   return (
-    <div className='mx-8 sm:mx-16 xl:ms-24 mt-10'>
+    <div className='mx-8 mb-20 sm:mx-16 xl:ms-24 mt-10'>
       <h1 className='rounded-t-2xl p-6 text-4xl text-white bg-gradient-to-r from-green-400 to-green-600 
       font-bold flex items-center justify-center gap-3 text-center'>
         <HiMiniTrophy className='w-8 h-8' />

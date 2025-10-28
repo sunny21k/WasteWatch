@@ -21,7 +21,7 @@ const Footer = () => {
   }
 
   return (
-    <div className='px-6 border-t-1 mt-20 border-gray-200 md:px-16 lg:px-24 xl:px-32 bg-green-200'>
+    <div className='px-6 border-t-1 border-gray-200 md:px-16 lg:px-24 xl:px-32 bg-green-200'>
       <div className='flex flex-col md:flex-row items-start justify-between gap-10
       py-10 border-b text-secondary-gray'>
         <div>

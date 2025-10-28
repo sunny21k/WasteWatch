@@ -3,7 +3,7 @@ import {FaBinoculars} from "react-icons/fa6"
 
 const AboutUs = () => {
   return (
-    <div className='border-t-1 border-gray-200 mt-20 p-6 flex flex-col sm:px-16 lg:px-24 lg:flex-row gap-30'>
+    <div className='border-t-1 mb-40 border-gray-200 mt-20 p-6 flex flex-col sm:px-16 lg:px-24 lg:flex-row gap-30'>
 
         {/* Left Side */}
         <div className='lg:w-1/3'>
