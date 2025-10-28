@@ -7,6 +7,7 @@ import FeatureCard from './FeatureCard';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+
   return (
     <div className='mx-8 sm:mx-16 xl:mx-24 relative'>
         <div className='text-center mt-25 mb-8'>
@@ -27,9 +28,10 @@ const Header = () => {
 
           {/* Buttons */}
           <div className='mt-6 flex justify-center gap-2 flex-wrap'>
-            <button className='cursor-pointer rounded-lg border px-5 py-2 hover:bg-primary-green 
-            hover:text-white transition-all duration-200 text-sm sm:text-base'>See How It Works</button>
-
+            <Link to={"/how-it-works"}>
+              <button className='cursor-pointer rounded-lg border px-5 py-2 hover:bg-primary-green 
+              hover:text-white transition-all duration-200 text-sm sm:text-base'>See How It Works</button>
+            </Link>
 
             <Link to={"/login-signin"}>
             <button className=' flex items-center gap-3 justify-between cursor-pointer rounded-lg border px-5 py-2 bg-primary-green text-white 

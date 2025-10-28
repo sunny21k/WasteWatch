@@ -8,6 +8,7 @@ import CollectWaste from './pages/CollectWaste'
 import Leaderboard from './pages/Leaderboard'
 import Rewards from './pages/Rewards'
 import Footer from './components/Footer'
+import HowItWorks from './pages/HowItWorks'
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
         <Route path='/collect-waste' element={<CollectWaste />} />
         <Route path='/leaderboard' element={<Leaderboard />} />
         <Route path='/rewards' element={<Rewards />} />
+        <Route path='/how-it-works' element={<HowItWorks />} />
       </Routes>
     </main>
 
