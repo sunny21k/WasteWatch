@@ -30,6 +30,7 @@ export const LoginSignin = () => {
         const {data} = await axios.post(`${backendUrl}/register`, {name, email, password})
 
         if (data.success) {
+        localStorage.setItem("token", data.token);
         setIsLoggedin(true)
         getUserData()
         navigate('/')
@@ -40,6 +41,7 @@ export const LoginSignin = () => {
         const {data} = await axios.post(`${backendUrl}/login`, {email, password})
 
         if (data.success) {
+        localStorage.setItem("token", data.token);
         setIsLoggedin(true)
         getUserData()
         navigate('/')

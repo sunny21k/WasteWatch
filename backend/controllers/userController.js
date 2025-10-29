@@ -79,30 +79,18 @@ export const loginUser = async (req, res) => {
 }
 
 // Get logged in user data
-export const getUser = async (req, res) => {
+export const getUserData = async (req, res) => {
     try {
-        const user = req.user;
+        const {user} = req;
 
-        // Check if user exists
-        if (!user) {
-            return res.json({
-                success: false,
-                message: "User not found"
-            })
-        }
-
-        // Return fields except password
-        return res.json({
+        res.json({
             success: true, 
-            user: {
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                points: user.points
-            }
+            user
         })
     } catch (error) {
-        return res.json({
+        console.log(error.message)
+        
+        res.json({
             success: false, 
             message: error.message
         })

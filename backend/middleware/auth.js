@@ -13,7 +13,7 @@ export const protect = async (req, res, next) => {
         const userId = decoded.id
 
         // Find user in database
-        const user = await User.findById(userId)
+        const user = await User.findById(userId).select("-password");
 
         // If user not found, return an error
         if (!user) {

@@ -8,7 +8,7 @@ import { AppContent } from '../context/AppContext';
 
 const Navbar = () => {
 
-  const {userData, setIsLoggedin, isLoggedin} = useContext(AppContent)
+  const {userData, setIsLoggedin, isLoggedin, logout} = useContext(AppContent)
   
   // Mobile menu functionality 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,7 +40,7 @@ const Navbar = () => {
         <div className='flex space-x-4'>
           <div className='border rounded-2xl flex items-center min-w-22 max-w-32 bg-gray-100 border-green-300 p-2'>
             <RiCoinsLine className='text-green-500 w-6 h-6 m-1'/>
-            0
+            {userData?.points ?? 0}
           </div>
           
           {isLoggedin ? (
@@ -50,6 +50,7 @@ const Navbar = () => {
               <></>
             </div>
             <button 
+            onClick={logout}
             className='cursor-pointer rounded-lg border px-5 py-2 hover:bg-black hover:text-white transition-all duration-200 text-sm sm:text-base'>
               Logout
             </button>
