@@ -96,3 +96,20 @@ export const getUserData = async (req, res) => {
         })
     }
 }
+
+// Get leaderboard data
+export const getLeaderboard = async (req, res) => {
+    try {
+        const users = await User.find({}).select("name points").sort({points: -1}).limit(50);
+
+        res.json({
+            success: true,
+            users
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        });
+    }
+}

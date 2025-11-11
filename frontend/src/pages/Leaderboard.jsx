@@ -1,19 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { leaderBoardData } from '../assets/assets'
 import { FaCrown } from "react-icons/fa";
 import { HiMiniTrophy } from "react-icons/hi2";
 import { RiCoinsLine } from "react-icons/ri";
+import { AppContent } from '../context/AppContext';
+import axios from 'axios'
 
 const Leaderboard = () => {
 
+  const {userData, backendUrl} = useContext(AppContent)
+
   // Sorts the data into numerical order
   const sortedData = leaderBoardData.slice().sort((a, b) => b.points - a.points)
-
-  // leaderBoardData.map((user) => {
-  //   console.log(user.rank)
-  //   console.log(user.name)
-  //   console.log(user.id)
-  // })
 
   return (
     <div className='mx-8 mb-20 sm:mx-16 xl:ms-24 mt-10'>

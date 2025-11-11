@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { RiCoinsLine } from 'react-icons/ri';
+import { AppContent } from '../context/AppContext';
 
 const Rewards = () => {
-  const [rewards, setRewards] = useState(100)
+  const [rewards, setRewards] = useState(0)
+
+  const {userData} = useContext(AppContent)
 
   return (
     <div className='flex flex-col items-center justify-start pt-20 px-6'>
@@ -18,7 +21,7 @@ const Rewards = () => {
         border-b-3 my-10 border-b-green-800'>
         <div className='flex items-center gap-3 text-green-700 text-3xl sm:text-4xl font-bold'>
           <RiCoinsLine className='w-10 h-10'/>
-          <span>{rewards}</span>
+          <span>{userData?.points ?? 0}</span>
         </div>
         <p className='text-primary-gray mt-2 text-center'>points earned so far! Keep reporting and collecting waste to earn more.</p>
       </div>

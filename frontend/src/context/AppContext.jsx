@@ -1,7 +1,7 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { useState, createContext } from "react";
+{/* Used AI to fix user data bug */}
 
+import axios from "axios";
+import { useState, createContext } from "react";
 export const AppContent = createContext();
 
 export const AppContextProvider = ({ children }) => {
@@ -26,7 +26,6 @@ export const AppContextProvider = ({ children }) => {
         setIsLoggedin(true);
       } else {
         console.log(data.message);
-        logout();
       }
     } catch (error) {
       console.log(error.response?.data?.message || error.message);
@@ -41,13 +40,6 @@ export const AppContextProvider = ({ children }) => {
     setUserData(null);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      getUserData();
-    }
-  }, []);
-
   const value = {
     backendUrl,
     isLoggedin,
@@ -58,7 +50,5 @@ export const AppContextProvider = ({ children }) => {
     logout,
   };
 
-  return <AppContent.Provider value={value}>
-    {children}
-    </AppContent.Provider>;
+  return <AppContent.Provider value={value}>{children}</AppContent.Provider>;
 };
