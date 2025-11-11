@@ -1,17 +1,50 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { leaderBoardData } from '../assets/assets'
 import { FaCrown } from "react-icons/fa";
 import { HiMiniTrophy } from "react-icons/hi2";
 import { RiCoinsLine } from "react-icons/ri";
 import { AppContent } from '../context/AppContext';
 import axios from 'axios'
+import { useEffect } from 'react';
 
 const Leaderboard = () => {
 
   const {userData, backendUrl} = useContext(AppContent)
+  const [leaderboard, setLeaderboard] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  // Sorts the data into numerical order
-  const sortedData = leaderBoardData.slice().sort((a, b) => b.points - a.points)
+  // Sorts the data into numerical order (FAKE DATA)
+  // const sortedData = leaderBoardData.slice().sort((a, b) => b.points - a.points)
+
+  // Fetch leaderboard data from backend
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      try {
+        const {data} = await axios.get(`${backendUrl}/leaderboard`);
+
+        if (data.success) {
+          const sorted = data.users.sort((a, b) => b.points - a.points);
+          setLeaderboard(sorted)
+        } else {
+          console.error("Failed to fetch leaderboard:", data.message)
+        }
+      } catch (error) {
+        console.error("Error fetching leaderboard:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchLeaderboard();
+  }, [backendUrl]);
+
+  if (loading) {
+    return (
+      <div className='text-center mt-10'>
+        Loading leaderboard...
+      </div>
+    )
+  }
 
   return (
     <div className='mx-8 mb-20 sm:mx-16 xl:ms-24 mt-10'>
@@ -29,13 +62,13 @@ const Leaderboard = () => {
         </div>
 
           {/* Maps the sorted data and puts it into the leaderboard */}
-          {sortedData.map((user, index) => {
+          {leaderboard.map((user, index) => {
 
             const crownColor = index === 0 ? "text-yellow-400" : index === 1 ? "text-gray-400" : index === 2 ? "text-orange-900" : "";
 
             return (
               <div
-              key={user.id}
+              key={user._id}
               className='flex items-center justify-between px-4 py-3 bg-green-100 rounded 
               shadow hover:bg-green-200 transition'
               >
