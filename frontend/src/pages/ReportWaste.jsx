@@ -47,6 +47,16 @@ const ReportWaste = () => {
             </div>
 
             <div>
+              <label className='block text-gray-700 mb-1 font-semibold'>Quantity (approx. lbs)</label>
+              <input type="number" name="quantity"
+              min="0"
+              required
+              className='w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus-ring-green-700 focus:outline-none'
+              placeholder="Enter approximate quantity (e.g. 3, 15)"
+              />
+            </div>
+
+            <div>
               <label className='block text-gray-700 mb-1 font-semibold'>
                 Description
               </label>

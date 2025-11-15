@@ -10,10 +10,9 @@ const CollectWaste = () => {
     collected: "bg-red-500 text-white"
   };
 
-const filteredReports = fakeReports.filter(report => 
-  filterStatus === "all" || report.status === filterStatus
-);
-
+  const filteredReports = fakeReports.filter(report => 
+    filterStatus === "all" || report.status === filterStatus
+  );
 
   return (
     <div className='min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 px-6 py-12'>
