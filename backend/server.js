@@ -3,6 +3,7 @@ import cors from "cors"
 import "dotenv/config"
 import connectDB from "./config/db.js"
 import userRouter from './routes/userRoutes.js';
+import reportRouter from './routes/reportRoutes.js';
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.use("/api/user", userRouter)
+app.use("/api/report", reportRouter)
 
 
 // Connect app to port
