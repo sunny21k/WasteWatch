@@ -1,6 +1,7 @@
 {/* Used AI to fix user data bug */}
 
 import axios from "axios";
+import { useEffect } from "react";
 import { useState, createContext } from "react";
 export const AppContent = createContext();
 
@@ -32,6 +33,13 @@ export const AppContextProvider = ({ children }) => {
       logout();
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      getUserData()
+    }
+  }, [])
 
   // Logout function
   const logout = () => {
