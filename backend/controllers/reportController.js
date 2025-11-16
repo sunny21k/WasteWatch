@@ -60,3 +60,36 @@ export const createReport = async (req, res) => {
         })
     }
 }
+
+// Gets all Reports 
+export const getAllReports = async (req, res) => {
+    try {
+        const reports = await Report.find({ createdAt: -1 })
+        res.json({
+            success: true, 
+            reports
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+// Get User Reports
+export const getMyReports = async (req, res) => {
+    try {
+        const myReports = await Report.find({ user: req.user_.id })
+
+        res.json({
+            success: true, 
+            myReports
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}

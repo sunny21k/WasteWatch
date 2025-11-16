@@ -34,6 +34,7 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
+  // User will stay logged in when page refreshed
   useEffect(() => {
     const token = localStorage.getItem("token")
     if (token) {
