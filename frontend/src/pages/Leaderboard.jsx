@@ -20,7 +20,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const {data} = await axios.get(`${backendUrl}/leaderboard`);
+        const {data} = await axios.get(`${backendUrl}/user/leaderboard`);
 
         if (data.success) {
           const sorted = data.users.sort((a, b) => b.points - a.points);

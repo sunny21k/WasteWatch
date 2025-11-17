@@ -15,7 +15,7 @@ const ReportWaste = () => {
           Help keep your community clean! Fill out the form below to report waste in your area.
         </p>
 
-        <form onSubmit="" className='space-y-5'>
+        <form className='space-y-5'>
             <div>
               <label className="block text-gray-700 mb-1 font-semibold">
                 <FaMapMarkerAlt className="inline mr-2 text-green-700" />

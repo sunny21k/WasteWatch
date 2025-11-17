@@ -64,7 +64,7 @@ export const createReport = async (req, res) => {
 // Gets all Reports 
 export const getAllReports = async (req, res) => {
     try {
-        const reports = await Report.find({}).sort({ createdAt: -1 });
+        const reports = await Report.find({}).populate("user", "name").sort({ createdAt: -1 });
         res.json({
             success: true, 
             reports

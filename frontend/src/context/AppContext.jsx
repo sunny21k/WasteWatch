@@ -54,7 +54,7 @@ export const AppContextProvider = ({ children }) => {
   const fetchReports = async () => {
     try {
       const { data } = await axios.get(`${backendUrl}/report/all-reports`);
-
+      // console.log("Fetched Reports:", data.reports)
       if (data.success) {
         setReports(data.reports)
       } 
@@ -75,7 +75,8 @@ export const AppContextProvider = ({ children }) => {
     setUserData,
     getUserData,
     logout,
-    fetchReports
+    fetchReports,
+    reports
   };
 
   return <AppContent.Provider value={value}>{children}</AppContent.Provider>;
