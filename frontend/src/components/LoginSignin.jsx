@@ -27,7 +27,7 @@ export const LoginSignin = () => {
       e.preventDefault()
 
       if (action === "Sign Up") {
-        const {data} = await axios.post(`${backendUrl}/register`, {name, email, password})
+        const {data} = await axios.post(`${backendUrl}/user/register`, {name, email, password})
 
         if (data.success) {
         localStorage.setItem("token", data.token);
@@ -38,7 +38,7 @@ export const LoginSignin = () => {
           alert(data.message)
         }
       } else {
-        const {data} = await axios.post(`${backendUrl}/login`, {email, password})
+        const {data} = await axios.post(`${backendUrl}/user/login`, {email, password})
 
         if (data.success) {
         localStorage.setItem("token", data.token);

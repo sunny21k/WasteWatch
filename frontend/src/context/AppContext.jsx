@@ -17,7 +17,7 @@ export const AppContextProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const { data } = await axios.get(`${backendUrl}/data`, {
+      const { data } = await axios.get(`${backendUrl}/user/data`, {
         headers: {
           Authorization: token,
         },
