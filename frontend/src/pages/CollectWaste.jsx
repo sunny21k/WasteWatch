@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { fakeReports } from '../assets/assets'
+import { AppContent } from '../context/AppContext';
 
 const CollectWaste = () => {
   const [filterStatus, setFilterStatus] = useState("all");
+  const { reports } = useContext(AppContent)
 
   const statusColors = {
     open: "bg-green-500 text-white",

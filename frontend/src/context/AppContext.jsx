@@ -9,6 +9,7 @@ export const AppContextProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_API_URL;
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [reports, setReports] = useState([]);
 
   // Get user data from backend
   const getUserData = async () => {
@@ -49,6 +50,23 @@ export const AppContextProvider = ({ children }) => {
     setUserData(null);
   };
 
+  // Fetches all the reports
+  const fetchReports = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/report/all-reports`);
+
+      if (data.success) {
+        setReports(data.reports)
+      } 
+    } catch (error) {
+      console.log(error.response?.data.message || error.message)
+    }
+  }
+
+  useEffect(() => {
+    fetchReports()
+  }, [])
+
   const value = {
     backendUrl,
     isLoggedin,
@@ -57,6 +75,7 @@ export const AppContextProvider = ({ children }) => {
     setUserData,
     getUserData,
     logout,
+    fetchReports
   };
 
   return <AppContent.Provider value={value}>{children}</AppContent.Provider>;
