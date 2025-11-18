@@ -42,9 +42,23 @@ export const LoginSignin = () => {
 
         if (data.success) {
         localStorage.setItem("token", data.token);
+
+        // Decode the JWT to get user id and role
+        const decoded = JSON.parse(atob(data.token.split(".")[1]));
+        const userId = decoded.id;
+        const userRole = decoded.role;
+
+        // Save user info in localStorage for role-based routing
+        localStorage.setItem("user", JSON.stringify({ id: userId, role: userRole }));
+
         setIsLoggedin(true)
         getUserData()
-        navigate('/')
+
+        if (userRole === "admin") {
+          navigate('/admin')
+        } else {
+          navigate('/')
+        }
         } else {
           alert(data.message)
         }

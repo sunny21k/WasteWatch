@@ -9,6 +9,8 @@ import Leaderboard from './pages/Leaderboard'
 import Rewards from './pages/Rewards'
 import Footer from './components/Footer'
 import HowItWorks from './pages/HowItWorks'
+import Dashboard from './pages/admin/Dashboard'
+import AdminRoute from './components/admin/adminRoute'
 
 const App = () => {
 
@@ -29,6 +31,13 @@ const App = () => {
         <Route path='/leaderboard' element={<Leaderboard />} />
         <Route path='/rewards' element={<Rewards />} />
         <Route path='/how-it-works' element={<HowItWorks />} />
+        <Route path='/admin' 
+          element={
+            <AdminRoute>
+              <Dashboard />
+            </AdminRoute>
+          } 
+        />
       </Routes>
     </main>
 

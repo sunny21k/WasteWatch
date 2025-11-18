@@ -1,9 +1,12 @@
 import axios from "axios";
 import { FaTrashAlt, FaMapMarkerAlt, FaCamera, FaClipboardList } from "react-icons/fa";
 import { AppContent } from '../context/AppContext';
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
+import {GoogleMap, useJsApiLoader} from "@react-google-maps/api"
 
 const ReportWaste = () => {
+
+  const GoogleMapsApikey = import.meta.env.VITE_BACKEND_API_URL;
 
   const {backendUrl} = useContext(AppContent)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -46,6 +49,7 @@ const ReportWaste = () => {
 
       if (data.success) {
         console.log(data.message)
+        window.location.href = "/collect-waste"
         // Resets form after successful submission
         setImage(false)
         setLocation("");
@@ -75,7 +79,7 @@ const ReportWaste = () => {
         </p>
 
         <form onSubmit={onSubmitHandler} className='space-y-5'>
-          
+
           {/* Location input */}
             <div>
               <label className="block text-gray-700 mb-1 font-semibold">

@@ -3,33 +3,37 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs";
 
 // Generates JWT 
-const generateToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {
+const generateToken = (id, role) => {
+    return jwt.sign({ id, role }, process.env.JWT_SECRET, {
         expiresIn: "30d"
     })
 }
 
 // Register a new users
 export const registerUser = async (req, res) => {
-    const {name, email, password} = req.body;
+    const { name, email, password } = req.body;
 
     try {
-
         // Check if user with the email already exists
-        const userExists = await User.findOne({email})
+        const userExists = await User.findOne({ email })
 
         if (userExists) {
             return res.json({
-                success: false, 
+                success: false,
                 message: "User already exists"
             })
         }
-        
+
+        let role = "user";
+        if (email === "admin@gmail.com") {
+            role = "admin"
+        }
+
         // Creates new user in the database
-        const user = await User.create({name, email, password})
-        
+        const user = await User.create({ name, email, password, role })
+
         // Generate JWT for the new user
-        const token = generateToken(user._id)
+        const token = generateToken(user._id, user.role)
         res.json({
             success: true,
             token
@@ -44,12 +48,12 @@ export const registerUser = async (req, res) => {
 
 // Login existing user
 export const loginUser = async (req, res) => {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
 
     try {
 
         // Finds user by email
-        const user = await User.findOne({email})
+        const user = await User.findOne({ email })
         if (user) {
 
             // Compares password with hashed password in database
@@ -58,7 +62,7 @@ export const loginUser = async (req, res) => {
             if (doesExist) {
 
                 // Generates JWT if password is correct
-                const token = generateToken(user._id)
+                const token = generateToken(user._id, user.role)
                 return res.json({
                     success: true,
                     token
@@ -72,7 +76,7 @@ export const loginUser = async (req, res) => {
 
     } catch (error) {
         return res.json({
-            success: false, 
+            success: false,
             message: error.message
         })
     }
@@ -81,17 +85,17 @@ export const loginUser = async (req, res) => {
 // Get logged in user data
 export const getUserData = async (req, res) => {
     try {
-        const {user} = req;
+        const { user } = req;
 
         res.json({
-            success: true, 
+            success: true,
             user
         })
     } catch (error) {
         console.log(error.message)
-        
+
         res.json({
-            success: false, 
+            success: false,
             message: error.message
         })
     }
@@ -100,7 +104,7 @@ export const getUserData = async (req, res) => {
 // Get leaderboard data
 export const getLeaderboard = async (req, res) => {
     try {
-        const users = await User.find({}).select("name points").sort({points: -1}).limit(50);
+        const users = await User.find({}).select("name points").sort({ points: -1 }).limit(50);
 
         res.json({
             success: true,
