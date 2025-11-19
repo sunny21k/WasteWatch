@@ -43,24 +43,26 @@ export const verifyReport = async (req, res) => {
 
 // Delete report
 export const deleteReport = async (req, res) => {
-    try {
-        const { id } = req.body;
-        const report = await Report.findById(id);
-        if (!report) {
-            return res.status(404).json({ 
-                success: false, 
-                message: "Report not found" 
-            });
-        }
-        await report.remove();
-        res.json({ 
-            success: true,
-            message: "Report deleted" 
-        });
-    } catch (error) {
-        res.json({ 
-            success: false, 
-            message: error.message 
-        });
+  try {
+    const { id } = req.body;
+
+    const report = await Report.findByIdAndDelete(id);
+    if (!report) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Report not found" 
+      });
     }
+
+    res.json({ 
+      success: true,
+      message: "Report deleted" 
+    });
+  } catch (error) {
+    res.json({ 
+      success: false, 
+      message: error.message 
+    });
+  }
 };
+
