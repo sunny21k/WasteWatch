@@ -1,7 +1,7 @@
 import express from 'express'
-import { protect } from "../middleware/authMiddleware.js";
-import { admin } from "../middleware/adminMiddleware.js";
-import { getAllReports, verifyReport, deleteReport } from "../controllers/adminController.js";
+import { protect } from "../middleware/auth.js";
+import { admin } from "../middleware/admin.js";
+import { getAllReports, verifyReport, deleteReport } from "../controllers/admin/adminController.js";
 
 const adminRouter = express.Router();
 

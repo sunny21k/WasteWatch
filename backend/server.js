@@ -4,6 +4,7 @@ import "dotenv/config"
 import connectDB from "./config/db.js"
 import userRouter from './routes/userRoutes.js';
 import reportRouter from './routes/reportRoutes.js';
+import adminRouter from './routes/adminRoutes.js';
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.get('/', (req, res) => {
 
 app.use("/api/user", userRouter)
 app.use("/api/report", reportRouter)
-
+app.use('/api/admin', adminRouter)
 
 // Connect app to port
 const PORT = process.env.PORT || 3000

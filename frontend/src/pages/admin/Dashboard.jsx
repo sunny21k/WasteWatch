@@ -14,7 +14,7 @@ const Dashboard = () => {
         const token = localStorage.getItem("token");
         const { data } = await axios.get(`${backendUrl}/report/all-reports`, {
           headers: { 
-            Authorization: `Bearer ${token}` 
+            Authorization: token
           },
         });
         if (data.success) setReports(data.reports);
@@ -30,23 +30,23 @@ const Dashboard = () => {
   const toggleVerify = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await axios.put(`${backendUrl}/report/verify`,
+      const { data } = await axios.put(`${backendUrl}/admin/verify`,
         { id },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { 
+          Authorization: token 
+        }}
       );
       if (data.success) {
         // Update local state
-        console.log("Verfied")
+        console.log("Verified")
         setReports((prev) =>
           prev.map((r) =>
             r._id === id ? { ...r, verified: !r.verified } : r
           )
         );
       } else alert(data.message);
-      console.log("DOesn't work")
     } catch (error) {
       console.log(error.message);
-      console.log("Dn't wrk")
     }
   };
 
