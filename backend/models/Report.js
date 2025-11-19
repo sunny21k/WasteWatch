@@ -21,7 +21,7 @@ const reportSchema = new mongoose.Schema({
     image: {
         type: String
     }, 
-    verfied: {
+    verified: {
         type: Boolean,
         default: false
     },
