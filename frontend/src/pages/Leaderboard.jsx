@@ -164,7 +164,7 @@ const Leaderboard = () => {
 
                     {/* Points */}
                     <div className='w-32 text-right'>
-                      <div className='inline-flex items-center justify-end gap-2 bg-green-100 px-4 py-2 rounded-full'>
+                      <div className='inline-flex items-center justify-end gap-2 bg-green-200 px-4 py-2 rounded-full'>
                         <RiCoinsLine className='w-5 h-5 text-green-700' />
                         <span className='font-bold text-green-800'>{user.points}</span>
                       </div>
