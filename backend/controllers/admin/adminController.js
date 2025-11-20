@@ -50,7 +50,7 @@ export const verifyReport = async (req, res) => {
             if (user) {
                 user.points += 10; // Add 10 points
                 await user.save();
-                c// onsole.log("User AFTER update:", user); 
+                // console.log("User AFTER update:", user); 
             } else {
                 console.log("User not found for this report!");
             }

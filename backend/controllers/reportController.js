@@ -96,3 +96,72 @@ export const getMyReports = async (req, res) => {
     });
   }
 };
+
+// Collects the report
+export const collectReport = async (req, res) => {
+  try {
+    const { reportId, userId } = req.body;
+    const report = await Report.findById(reportId);
+
+    if (!report) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Report not found" 
+      });
+    }
+
+    // Only allow collection if verified
+    if (!report.verified) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Report not verified yet" 
+      });
+    }
+
+    // Check if already being collected
+    if (report.status === "pending" || report.status === "collected") {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Report is already being collected" 
+      });
+    }
+
+    // Update report with collector and status
+    report.status = "pending";
+    report.collector = userId;
+    await report.save();
+
+    res.json({ 
+      success: true, 
+      message: "Report collection started", 
+      report 
+    });
+  } catch (error) {
+    console.log("CollectReport error:", error.message);
+    res.status(500).json({
+      success: false, 
+      message: error.message 
+    });
+  }
+};
+
+// Get reports being collected by user
+export const getMyCollections = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const collections = await Report.find({ collector: userId })
+      .populate("user", "name")
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      collections
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};

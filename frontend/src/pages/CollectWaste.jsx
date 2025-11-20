@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { AppContent } from '../context/AppContext';
+import axios from 'axios';
 import { FaCheckCircle, FaClock, FaMapMarkerAlt, FaUser, FaWeight, FaCircle, FaTrash } from 'react-icons/fa';
 
 const CollectWaste = () => {
   const [filterVerified, setFilterVerified] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
-  const { reports = [] } = useContext(AppContent);
+  const { reports = [], userData, backendUrl } = useContext(AppContent);
 
   // Filter reports based on verification and status
   const filteredReports = reports.filter(report => {
@@ -20,10 +21,28 @@ const CollectWaste = () => {
     return verifiedMatch && statusMatch;
   });
 
-  const handleCollect = (reportId) => {
-    // Add your collect waste logic here
-    console.log("Collecting waste from report:", reportId);
-    alert("Waste collection initiated!");
+  const handleCollect = async (reportId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const userId = userData._id; 
+
+      const { data } = await axios.post(
+        `${backendUrl}/report/collect`,
+        { reportId, userId },
+        { headers: { Authorization: token } }
+      );
+
+      if (data.success) {
+        alert("Waste collection initiated!");
+        // Refresh the reports or update the specific report in state
+        window.location.reload();
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+      alert("Failed to collect waste");
+    }
   };
 
   const statusColors = {

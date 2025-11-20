@@ -29,6 +29,11 @@ const reportSchema = new mongoose.Schema({
         type: String,
         enum: ["open", "pending", "collected"],
         default: "open"
+    },
+    collector: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        default: null
     }
 }, {timestamps: true})
 
