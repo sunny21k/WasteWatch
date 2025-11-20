@@ -17,7 +17,7 @@ const CollectWaste = () => {
   );
 
   return (
-    <div className='min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 px-6 py-12'>
+    <div className='min-h-screen bg-green-50 px-6 py-12'>
       {/* Header */}
       <div className='max-w-4xl mx-auto text-center mb-12'>
         <h1 className='text-4xl sm:text-5xl font-extrabold text-green-900 mb-4'>Reported Waste</h1>

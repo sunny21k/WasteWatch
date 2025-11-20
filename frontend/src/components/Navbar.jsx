@@ -38,9 +38,9 @@ const Navbar = () => {
 
           {/* Auth Buttons and rewards */}
         <div className='flex space-x-4'>
-          <div className='border rounded-2xl flex items-center min-w-22 max-w-32 bg-gray-100 border-green-300 p-2'>
-            <RiCoinsLine className='text-green-500 w-6 h-6 m-1'/>
-            {userData?.points ?? 0}
+          <div className='inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-green-200 rounded-2xl px-5 py-2.5 shadow-md hover:shadow-lg transition-all'>
+            <RiCoinsLine className='text-green-600 w-6 h-6'/>
+            <span className='font-bold text-green-800 text-lg'>{userData?.points ?? 0}</span>
           </div>
           
           {isLoggedin ? (

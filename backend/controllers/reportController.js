@@ -77,19 +77,22 @@ export const getAllReports = async (req, res) => {
     }
 }
 
-// Get User Reports
+// Get user's reports
 export const getMyReports = async (req, res) => {
-    try {
-        const myReports = await Report.find({ user: req.user_.id })
+  try {
+    const userId = req.user.id; 
 
-        res.json({
-            success: true, 
-            myReports
-        })
-    } catch (error) {
-        res.json({
-            success: false,
-            message: error.message
-        })
-    }
-}
+    const reports = await Report.find({ user: userId }).sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      reports
+    });
+
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};
