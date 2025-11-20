@@ -108,6 +108,14 @@ const handleDelete = async (id) => {
               key={report._id} 
               className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-200"
             >
+              {/* Report Image */}
+              {report.image && (
+                <img 
+                  src={report.image} 
+                  alt={report.wasteType} 
+                  className="w-full h-48 object-cover"
+                />
+              )}
               {/* Status Banner */}
               <div className={`h-2 ${report.verified ? 'bg-green-400' : 'bg-red-400'}`}></div>
               

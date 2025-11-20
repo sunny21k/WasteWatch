@@ -22,54 +22,48 @@ export const getAllReports = async (req, res) => {
 
 // Verify a report
 export const verifyReport = async (req, res) => {
-    try {
-        const { id } = req.body;
+  try {
+    const { id } = req.body;
 
-        // Find the report
-        const report = await Report.findById(id);
-        // console.log("Report found:", report);  
-        if (!report) {
-            return res.status(404).json({
-                success: false,
-                message: "Report not found"
-            });
-        }
-
-        // console.log("Report user ID:", report.user);
-
-        // Toggle verification
-        report.verified = !report.verified;
-        await report.save();
-        console.log("Report saved with verified:", report.verified);
-
-        // Update user points if verified
-        if (report.verified) {
-            const user = await User.findById(report.user);
-            // console.log("User BEFORE update:", user); 
-
-            if (user) {
-                user.points += 10; // Add 10 points
-                await user.save();
-                // console.log("User AFTER update:", user); 
-            } else {
-                console.log("User not found for this report!");
-            }
-        }
-
-        res.json({
-            success: true,
-            message: "Report verified",
-            report
-        });
-    } catch (error) {
-        // console.log("Error in verifyReport:", error.message);
-        res.json({
-            success: false,
-            message: error.message
-        });
+    // Find the report
+    const report = await Report.findById(id);
+    if (!report) {
+      return res.status(404).json({
+        success: false,
+        message: "Report not found",
+      });
     }
-};
 
+    // Toggle verification
+    report.verified = !report.verified;
+
+    // Add/subtract points only once
+    const user = await User.findById(report.user);
+    if (user) {
+      if (report.verified && !report.pointsAwarded) {
+        user.points += 10; // Add points
+        report.pointsAwarded = true;
+      } else if (!report.verified && report.pointsAwarded) {
+        user.points -= 10; // Remove points if unverified
+        report.pointsAwarded = false;
+      }
+      await user.save();
+    }
+
+    await report.save();
+
+    res.json({
+      success: true,
+      message: "Report verification updated",
+      report,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 // Delete report
 export const deleteReport = async (req, res) => {
