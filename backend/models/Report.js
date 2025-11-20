@@ -20,7 +20,7 @@ const reportSchema = new mongoose.Schema({
     },
     image: {
         type: String
-    }, 
+    },
     verified: {
         type: Boolean,
         default: false
@@ -38,8 +38,23 @@ const reportSchema = new mongoose.Schema({
     pointsAwarded: {
         type: Boolean,
         default: false
+    },
+    completed: {
+        type: Boolean,
+        default: false
+    },
+    completionPhoto: {
+        type: String
+    },
+    completionVerified: {
+        type: Boolean,
+        default: false
+    },
+    completionPointsAwarded: {
+        type: Boolean,
+        default: false
     }
-}, {timestamps: true})
+}, { timestamps: true });
 
 const Report = mongoose.model("Report", reportSchema);
 

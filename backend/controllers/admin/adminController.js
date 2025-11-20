@@ -90,3 +90,58 @@ export const deleteReport = async (req, res) => {
         });
     }
 };
+
+// Admin verifies completed report and awards points
+export const verifyCompletedReport = async (req, res) => {
+  try {
+    const { reportId } = req.body;
+
+    const report = await Report.findById(reportId).populate("collector");
+
+    if (!report) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Report not found" 
+      });
+    }
+
+    if (!report.completed) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Report not yet completed by collector" 
+      });
+    }
+
+    if (report.completionVerified) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Completed report already verified" 
+      });
+    }
+
+    // Mark completion as verified
+    report.completionVerified = true;
+    await report.save();
+
+    // Award 50 points to the collector if not already awarded
+    if (!report.completionPointsAwarded && report.collector) {
+      report.collector.points += 50;
+      await report.collector.save();
+      report.completionPointsAwarded = true;
+      await report.save();
+    }
+
+    res.json({ 
+        success: true, 
+        message: "Completed report verified and points awarded", 
+        report 
+
+    });
+  } catch (error) {
+    console.log("VerifyCompletedReport error:", error.message);
+    res.status(500).json({ 
+        success: false, 
+        message: error.message 
+    });
+  }
+};

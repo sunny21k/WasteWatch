@@ -165,3 +165,77 @@ export const getMyCollections = async (req, res) => {
     });
   }
 };
+
+// User marks a report as completed and uploads a photo
+export const completeReport = async (req, res) => {
+  try {
+    const { reportId } = req.body;
+    const imageFile = req.file;
+
+    if (!imageFile) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Completion photo is required" 
+    });
+    }
+
+    const report = await Report.findById(reportId);
+
+    if (!report) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Report not found" 
+    });
+    }
+
+    if (!report.collector || report.collector.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ 
+        success: false, 
+        message: "You are not the collector of this report" 
+    });
+    }
+
+    if (report.completed) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Report already marked as completed" 
+    });
+    }
+
+    const fileBuffer = fs.readFileSync(imageFile.path);
+
+    // Upload image to ImageKit
+    const response = await imagekit.upload({
+      file: fileBuffer,
+      fileName: imageFile.originalname,
+      folder: "/completed-reports"
+    });
+
+    const optimizedImageUrl = imagekit.url({
+      path: response.filePath,
+      transformation: [
+        { quality: "auto" },
+        { format: "webp" },
+        { width: "1280" }
+      ]
+    });
+
+    // Update report
+    report.completed = true;
+    report.completionPhoto = optimizedImageUrl;
+    report.status = "collected";
+    await report.save();
+
+    res.json({ 
+        success: true, 
+        message: "Report marked as completed", 
+        report 
+    });
+  } catch (error) {
+    console.log("CompleteReport error:", error.message);
+    res.status(500).json({ 
+        success: false, 
+        message: error.message 
+    });
+  }
+};
