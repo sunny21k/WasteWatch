@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { RiCoinsLine } from "react-icons/ri";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa";
 import { features } from '../assets/assets';
 import FeatureCard from './FeatureCard';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppContent } from '../context/AppContext';
 
 const Header = () => {
+  const { userData } = useContext(AppContent)
+  const navigate = useNavigate()
+
+  const LoggedInPage = () => {
+    if (userData && userData._id) {
+      navigate('/login-signin')
+    } else {
+      navigate('report-waste')
+    }
+  }
 
   return (
     <div className='mx-8 sm:mx-16 xl:mx-24 relative'>
@@ -33,10 +44,18 @@ const Header = () => {
               hover:text-white transition-all duration-200 text-sm sm:text-base'>See How It Works</button>
             </Link>
 
-            <Link to={"/login-signin"}>
-            <button className=' flex items-center gap-3 justify-between cursor-pointer rounded-lg border px-5 py-2 bg-primary-green text-white 
-            hover:bg-green-900 transition-all duration-200 text-sm sm:text-base'>Get Started <FaArrowRightLong /></button>
+            {/* User logged in */}
+            {userData && userData._id ? (
+            <Link to={"/report-waste"}>
+              <button className=' flex items-center gap-3 justify-between cursor-pointer rounded-lg border px-5 py-2 bg-primary-green text-white 
+              hover:bg-green-900 transition-all duration-200 text-sm sm:text-base'>Get Started <FaArrowRightLong /></button>
             </Link>
+            ) : ( 
+            <Link to={"/login-signin"}>
+              <button className=' flex items-center gap-3 justify-between cursor-pointer rounded-lg border px-5 py-2 bg-primary-green text-white 
+              hover:bg-green-900 transition-all duration-200 text-sm sm:text-base'>Get Started <FaArrowRightLong /></button>
+            </Link>
+            )}
           </div>
 
           {/* Feature Card */}
