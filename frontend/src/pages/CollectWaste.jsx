@@ -267,14 +267,20 @@ const CollectWaste = () => {
                   {/* Action Button */}
                   <button
                     className={`w-full py-3 rounded-xl font-semibold transition-all duration-200 shadow-md ${
-                      report.verified
-                        ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 hover:shadow-lg cursor-pointer"
-                        : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                      !report.verified || report.status !== "open"
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 hover:shadow-lg cursor-pointer"
                     }`}
-                    onClick={() => report.verified && handleCollect(report._id)}
-                    disabled={!report.verified}
+                    onClick={() => report.verified && report.status === "open" && handleCollect(report._id)}
+                    disabled={!report.verified || report.status !== "open"}
                   >
-                    {report.verified ? "Collect Waste" : "Awaiting Verification"}
+                    {!report.verified
+                      ? "Awaiting Verification"
+                      : report.status === "pending"
+                      ? "Pending"
+                      : report.status === "collected"
+                      ? "Already Collected"
+                      : "Collect Waste"}
                   </button>
 
                   {!report.verified && (

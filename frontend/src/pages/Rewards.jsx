@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { RiCoinsLine } from "react-icons/ri";
-import { FaMapMarkerAlt, FaRecycle, FaWeight, FaCheckCircle, FaClock, FaTruck, FaCircle, FaCamera, FaUpload } from "react-icons/fa";
+import { FaMapMarkerAlt, FaRecycle, FaWeight, FaCheckCircle, FaClock, FaTruck, FaCircle, FaCamera, FaUpload, FaAward } from "react-icons/fa";
 import { AppContent } from "../context/AppContext";
 import axios from "axios";
 
@@ -8,9 +8,9 @@ const Rewards = () => {
   const { backendUrl, userData, getUserData } = useContext(AppContent);
   const [myReports, setMyReports] = useState([]);
   const [myCollections, setMyCollections] = useState([]);
-  const [activeTab, setActiveTab] = useState("submitted");
-  const [completionImages, setCompletionImages] = useState({}); // Store images by reportId
-  const [uploading, setUploading] = useState(null); // Track which report is uploading
+  const [activeTab, setActiveTab] = useState("submitted"); // "submitted", "collecting", or "verified"
+  const [completionImages, setCompletionImages] = useState({});
+  const [uploading, setUploading] = useState(null);
 
   // Fetch reports created by the logged-in user
   useEffect(() => {
@@ -77,14 +77,12 @@ const Rewards = () => {
 
       if (data.success) {
         alert("Collection completed! Awaiting admin verification.");
-        // Clear the image for this report
         setCompletionImages(prev => {
           const updated = { ...prev };
           delete updated[reportId];
           return updated;
         });
         
-        // Refresh collections
         const collectionsData = await axios.get(`${backendUrl}/report/my-collections`, {
           headers: { Authorization: token },
         });
@@ -92,7 +90,6 @@ const Rewards = () => {
           setMyCollections(collectionsData.data.collections);
         }
         
-        // Refresh user data to update points
         getUserData();
       } else {
         alert(data.message);
@@ -111,7 +108,19 @@ const Rewards = () => {
     collected: { bg: "bg-blue-100", text: "text-blue-700", dot: "text-blue-500" }
   };
 
-  const displayReports = activeTab === "submitted" ? myReports : myCollections;
+  // Filter collections
+  const activeCollections = myCollections.filter(r => !r.completionVerified);
+  const verifiedCollections = myCollections.filter(r => r.completionVerified);
+
+  // Determine which reports to display
+  let displayReports;
+  if (activeTab === "submitted") {
+    displayReports = myReports;
+  } else if (activeTab === "collecting") {
+    displayReports = activeCollections;
+  } else {
+    displayReports = verifiedCollections;
+  }
 
   return (
     <div className="min-h-screen bg-green-50 pt-20 px-6 pb-12">
@@ -160,21 +169,21 @@ const Rewards = () => {
             <p className="text-sm text-gray-600">Confirmed reports</p>
           </div>
 
-          {/* Collecting Card */}
-          <div className="bg-white shadow-xl rounded-2xl p-8 border-l-4 border-blue-500 transform hover:scale-105 transition-transform duration-300">
+          {/* Verified Collections Card */}
+          <div className="bg-white shadow-xl rounded-2xl p-8 border-l-4 border-purple-500 transform hover:scale-105 transition-transform duration-300">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-700">Collecting</h3>
-              <FaTruck className="w-7 h-7 text-blue-600" />
+              <h3 className="text-lg font-semibold text-gray-700">Completed</h3>
+              <FaAward className="w-7 h-7 text-purple-600" />
             </div>
             <div className="text-5xl font-bold text-gray-900 mb-2">
-              {myCollections.length}
+              {verifiedCollections.length}
             </div>
-            <p className="text-sm text-gray-600">Active collections</p>
+            <p className="text-sm text-gray-600">Verified collections</p>
           </div>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex justify-center gap-4 mb-8">
+        <div className="flex justify-center gap-4 mb-8 flex-wrap">
           <button
             onClick={() => setActiveTab("submitted")}
             className={`px-6 py-3 rounded-xl cursor-pointer font-semibold transition-all duration-200 flex items-center gap-2 ${
@@ -184,7 +193,7 @@ const Rewards = () => {
             }`}
           >
             <FaRecycle />
-            Your Submitted Reports
+            Submitted Reports
           </button>
           <button
             onClick={() => setActiveTab("collecting")}
@@ -195,7 +204,18 @@ const Rewards = () => {
             }`}
           >
             <FaTruck />
-            Currently Collecting
+            Active Collections ({activeCollections.length})
+          </button>
+          <button
+            onClick={() => setActiveTab("verified")}
+            className={`px-6 py-3 rounded-xl cursor-pointer font-semibold transition-all duration-200 flex items-center gap-2 ${
+              activeTab === "verified"
+                ? "bg-green-900 text-white shadow-lg"
+                : "bg-white text-gray-700 hover:bg-green-100"
+            }`}
+          >
+            <FaAward />
+            Verified Collections ({verifiedCollections.length})
           </button>
         </div>
 
@@ -212,7 +232,7 @@ const Rewards = () => {
                   Start reporting waste to earn points and make a difference!
                 </p>
               </>
-            ) : (
+            ) : activeTab === "collecting" ? (
               <>
                 <FaTruck className="w-20 h-20 text-gray-300 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-700 mb-2">
@@ -220,6 +240,16 @@ const Rewards = () => {
                 </h3>
                 <p className="text-gray-500 mb-6">
                   Start collecting waste reports to help clean your community!
+                </p>
+              </>
+            ) : (
+              <>
+                <FaAward className="w-20 h-20 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                  No Verified Collections Yet
+                </h3>
+                <p className="text-gray-500 mb-6">
+                  Complete collections and get them verified to see them here!
                 </p>
               </>
             )}
@@ -242,7 +272,13 @@ const Rewards = () => {
                 className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
               >
                 {/* Status Banner */}
-                <div className={`h-2 ${report.verified ? 'bg-gradient-to-r from-green-500 to-emerald-500' : 'bg-gradient-to-r from-amber-500 to-orange-500'}`}></div>
+                <div className={`h-2 ${
+                  isVerified 
+                    ? 'bg-gradient-to-r from-purple-500 to-purple-600' 
+                    : report.verified 
+                      ? 'bg-gradient-to-r from-green-500 to-emerald-500' 
+                      : 'bg-gradient-to-r from-amber-500 to-orange-500'
+                }`}></div>
                 
                 {/* Show completion photo if uploaded */}
                 {report.completionPhoto && (
@@ -252,7 +288,7 @@ const Rewards = () => {
                       src={report.completionPhoto}
                       alt="Cleaned area"
                     />
-                    <div className="absolute top-2 right-2 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    <div className="absolute top-2 right-2 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                       After Cleanup
                     </div>
                   </div>
@@ -294,8 +330,8 @@ const Rewards = () => {
                     )}
 
                     {/* Collection verified points */}
-                    {isVerified && activeTab === "collecting" && (
-                      <div className="flex items-center gap-1 text-blue-600 font-bold">
+                    {isVerified && (
+                      <div className="flex items-center gap-1 text-purple-600 font-bold">
                         <RiCoinsLine className="w-5 h-5" />
                         <span>+50</span>
                       </div>
@@ -303,7 +339,7 @@ const Rewards = () => {
                   </div>
 
                   {/* Awaiting Collection Verification Badge */}
-                  {awaitingVerification && (
+                  {awaitingVerification && activeTab === "collecting" && (
                     <div className="mb-3 bg-amber-50 border border-amber-200 rounded-lg p-3">
                       <div className="flex items-center gap-2 text-amber-700">
                         <FaClock className="w-4 h-4" />
@@ -318,19 +354,22 @@ const Rewards = () => {
                   )}
 
                   {/* Collection Verified Badge */}
-                  {isVerified && (
-                    <div className="mb-3 bg-green-50 border border-green-200 rounded-lg p-3">
-                      <div className="flex items-center gap-2 text-green-700">
-                        <FaCheckCircle className="w-4 h-4" />
+                  {isVerified && activeTab === "verified" && (
+                    <div className="mb-3 bg-purple-50 border border-purple-200 rounded-lg p-3">
+                      <div className="flex items-center gap-2 text-purple-700">
+                        <FaAward className="w-5 h-5" />
                         <span className="text-sm font-semibold">
-                          Collection Verified! +50 Points
+                          Collection Verified! +50 Points Earned
                         </span>
                       </div>
+                      <p className="text-xs text-purple-600 mt-1">
+                        Great job cleaning up this area!
+                      </p>
                     </div>
                   )}
 
                   {/* Show reporter name if this is a collection */}
-                  {activeTab === "collecting" && (
+                  {(activeTab === "collecting" || activeTab === "verified") && (
                     <div className="mb-3 text-sm text-gray-600">
                       <span className="font-semibold">Reported by:</span> {report.user?.name || "Unknown"}
                     </div>
